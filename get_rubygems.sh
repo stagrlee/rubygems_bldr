@@ -13,7 +13,7 @@
 
 # TODO add proxy support
 
-myGEMS="rails hpricot"
+myGEMS="rails hpricot prawn roo Shoulda capistrano thoughtbot-factory_girl"
 mySUBDIR="lib/ruby/gems/1.8"
 
 usage()
@@ -55,6 +55,46 @@ if [[ -z "${myDESTDIR}" ]]; then
 fi
 
 #
+# make sure gem and ruby is installed
+#
+ruby --version > /dev/null 2>&1
+rubystat=$?
+gem --version > /dev/null 2>&1
+gemstat=$?
+
+if [[ ${rubystat} -ne 0 || ${gemstat} -ne 0 ]]; then
+  echo "***"
+  echo "*** Both ruby and rubygems must be installed"
+  echo "***"
+  exit 1
+fi
+
+#
+# make sure gem is at least 1.2.0
+#
+gv="`gem --version`"
+if [[ "${gv}" = "1.1.1" || "${gv}" = "1.1.0" || "${gv}" = "1.0.1" || "${gv}" = "1.0.0" ]]
+then
+  echo "***"
+  echo "*** gem must be at least version 1.2.0"
+  echo "***"
+  exit 1
+fi
+
+#
+# make sure gem is looking at github since that is where factory_girl is hosted
+#
+if [[ `gem sources | grep -c github` -eq 0 ]]; then
+  gem sources -a http://gems.github.com
+  if [[ `gem sources | grep -c github` -eq 0 ]]; then
+    echo "***"
+    echo "*** couldn't add github to gem sources list"
+    echo "***"
+    exit 1
+  fi
+fi
+
+#
 # can't run this on a box where the package is already installed
 # so test system sanity
 #
@@ -71,14 +111,14 @@ export PATH=${myDESTDIR}/bin:${PATH}
 
 if [[ "x${NETWORK}" = "xyes" ]]; then
 
-    gem install --development --no-rdoc --no-ri --install-dir ${myDESTDIR} \
+    gem install --no-rdoc --no-ri --install-dir ${myDESTDIR} \
         ${myGEMS}
 
 else
 
     # The ruby gems program looks in your current directory for the gems
     cp cache/*.gem ./
-    gem install --development -l --install-dir ${myDESTDIR}/${mySUBDIR} \
+    gem install -l --install-dir ${myDESTDIR}/${mySUBDIR} \
         ${myGEMS}
     # cleanup
     rm -f *.gem
