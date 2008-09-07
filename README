@@ -25,14 +25,6 @@ approach
 All general purpose package managers have tools to automate autotools 
 package creation.
 
-The Perl Module Builder package uses the improved CPANPLUS mechanism of CPAN
-to harvest the CPAN modules needed and store them in a local CPAN repo.
-This local repo and some scripts are tar'd with the autoconf "make dist" 
-mechanism.  This defines a versioned release of a group of CPAN perl modules.
-
-The release is now a package just like any other autotools package that can be
-unpacked, configured with "./configure" and installed.
-
 Ruby gems packages are easy to package compared to CPAN.  Thanks gems!
 
 
