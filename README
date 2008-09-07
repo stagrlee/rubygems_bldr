@@ -1,0 +1,58 @@
+rubygems_bldr
+=============
+
+This rubygems_bldr is similar in intent to the perlmod_bldr which is 
+to bridge the gap between a language specific packaging system like "gems"
+or "cpan" and general purpose packaging systems like debian, gentoo, 
+RPM, conary, and the like.  The intent is to create a bundle of ruby gems
+and release that collection every so often to developers and application
+servers with little knowledge of the language specific package manager.
+
+This is a standard autoconf package that runs the gems utility when you
+type "make dist" to harvest the internet for a list of gems.  The 
+resulting tarball output from "make dist" contains in it all the gem
+tarballs so that you can build/stage install/package these gems for
+downstream release targets like Solaris, Mac, Cygwin, Linux without
+a connection to the network.  To release you follow the standard autotools
+approach
+
+    tar xzf <release tarball>
+    cd <release dir>
+    ./configure
+    make
+    make DESTDIR=/my/pkg/dir install
+
+All general purpose package managers have tools to automate autotools 
+package creation.
+
+The Perl Module Builder package uses the improved CPANPLUS mechanism of CPAN
+to harvest the CPAN modules needed and store them in a local CPAN repo.
+This local repo and some scripts are tar'd with the autoconf "make dist" 
+mechanism.  This defines a versioned release of a group of CPAN perl modules.
+
+The release is now a package just like any other autotools package that can be
+unpacked, configured with "./configure" and installed.
+
+Ruby gems packages are easy to package compared to CPAN.  Thanks gems!
+
+
+This package is currently very early...
+It doesn't yet deal with firewall proxies.
+It doesn't yet deal with itself being installed!!!
+   This may get tricky to fix...
+Doesn't yet modularize gems into package groups
+Is a first attempt from a non-ruby coder (Lee Thompson)
+
+That said, it is a way keep current with gems updates with formal releases.
+If new gems releases are problematic, you can go back and patch old gems
+since the source release can be patched.
+
+This package supports staged installs, important for package building.
+http://www.gnu.org/software/automake/manual/html_node/DESTDIR.html#DESTDIR
+With a staged install, you can develop the next version of the pacakge
+without root access which is superior because more people can participate
+in the development.
+
+
+                        Lee Thompson
+                        06-Sep-2008
