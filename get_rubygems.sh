@@ -111,14 +111,14 @@ export PATH=${myDESTDIR}/bin:${PATH}
 
 if [[ "x${NETWORK}" = "xyes" ]]; then
 
-    gem install --no-rdoc --no-ri --install-dir ${myDESTDIR} \
+    gem install --development --no-rdoc --no-ri --install-dir ${myDESTDIR} \
         ${myGEMS}
 
 else
 
     # The ruby gems program looks in your current directory for the gems
     cp cache/*.gem ./
-    gem install -l --install-dir ${myDESTDIR}/${mySUBDIR} \
+    gem install --development -l --install-dir ${myDESTDIR}/${mySUBDIR} \
         ${myGEMS}
     # cleanup
     rm -f *.gem
