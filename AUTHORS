@@ -6,6 +6,7 @@ on Sept 6, 2008.  Based on perlmod_bldr.
 
 Note - the release source tarball package contains a bundle of numerous
 ruby gem modules written and maintained by numerous ruby gems developers
-and hosted on CPAN.org.  The source release of all these upstream works
-is contained in their entirety.  The source repository is very tiny, 
-hosted on github, and is an original work.
+hosted on http://gems.rubyforge.org/ and http://gems.github.com.  The
+source release of all these upstream works is contained in their entirety.  
+The actual source in this package repository is very tiny, and hosted on
+github, and is an original work.
