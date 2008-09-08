@@ -37,13 +37,26 @@ Is a first attempt from a non-ruby coder (Lee Thompson)
 
 That said, it is a way keep current with gems updates with formal releases.
 If new gems releases are problematic, you can go back and patch old gems
-since the source release can be patched.
+since the source release can be patched.  (I've been bitten by CPAN packages
+disappearing off CPAN causing interesting maintenance scenarios).
 
 This package supports staged installs, important for package building.
 http://www.gnu.org/software/automake/manual/html_node/DESTDIR.html#DESTDIR
 With a staged install, you can develop the next version of the pacakge
 without root access which is superior because more people can participate
-in the development.
+in the development and you don't have to go ask your sys admin for root
+access.
+
+To add GEMS
+===========
+
+1) edit the get_rubygems.sh shell script.  In it you will find a "myGEMS" 
+   variable.  Add your favorite GEM to this list and make sure it is
+   hosted on gems.rubyforge.com or gems.github.com.
+2) Bump the version in the configure.ac autoconf script
+3) Run the "./configure_pkg.sh" shell script which will harvest the
+   GEMS off the net and create a release tarball.
+4) If the package looks good, commit the changes to git
 
 
                         Lee Thompson
